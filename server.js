@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const Article = require('./models/article')
 const articleRouter = require('./routes/articles')
+const methodOverride = require('method-override')
 const app = express()
 
 mongoose.connect('mongodb+srv://josephcruel:UkwKD5LJ9yLIWp12@calories.ifsfwtg.mongodb.net/?retryWrites=true&w=majority')
@@ -9,6 +10,7 @@ mongoose.connect('mongodb+srv://josephcruel:UkwKD5LJ9yLIWp12@calories.ifsfwtg.mo
 app.set('view engine', 'ejs')
 
 app.use(express.urlencoded({ extended: false }))
+app.use(methodOverride('_method'))
 
 app.get('/', async (req, res) => {
     const articles = await Article.find().sort({
